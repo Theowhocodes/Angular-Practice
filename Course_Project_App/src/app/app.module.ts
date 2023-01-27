@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { RecipeComponent } from './recipes/recipes.component';
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component'
 import { FormsModule } from '@angular/forms';
+import { DropdownDirective } from './shared/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     RecipeComponent,
     RecipeItemComponent,
+    DropdownDirective,
     
   
   ],
