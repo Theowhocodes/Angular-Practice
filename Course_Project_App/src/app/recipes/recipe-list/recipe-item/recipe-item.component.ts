@@ -6,16 +6,12 @@ import { Recipe } from '../../recipe.model'
   templateUrl: './recipe-item.component.html',
   styleUrls: ['./recipe-item.component.css']
 })
-export class RecipeItemComponent {
+export class RecipeItemComponent implements OnInit{
   @Input() recipe: Recipe;
-  @Output() recipeChosen = new EventEmitter<void>();
+  @Input() index: number;
 
-  constructor(){}
 
   ngOnInit(){}
 
-  onChoice(event: Event){
-    this.recipeChosen.emit();
-  }
 
 }
