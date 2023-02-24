@@ -1,7 +1,7 @@
-import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { SharedModule } from "../shared/shared.module";
 import { ShoppingListEditComponent } from "./shopping-list-edit/shopping-list-edit.component";
 import { ShoppingListComponent } from "./shopping-list.component";
 
@@ -11,12 +11,11 @@ import { ShoppingListComponent } from "./shopping-list.component";
         ShoppingListEditComponent
         ],
     imports: [
-        CommonModule,
         FormsModule,
-        RouterModule,
         RouterModule.forChild([
             { path: 'shopping-list', component: ShoppingListComponent },
-        ])
+        ]),
+        SharedModule
     ]
 })
 export class ShoppingListModule {}
