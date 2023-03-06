@@ -1,10 +1,6 @@
 import { Ingredient } from "../../shared/ingredient.model";
 import * as ShoppingListActions from './shopping-list.actions'
 
-export interface AppState {
-    shoppingList: State;
-}
-
 export interface State {
     ingredients: Ingredient[], 
     editedIngredient: Ingredient,
@@ -34,9 +30,11 @@ export function shoppingListReducer(
     state: State = startingState, 
     action: ShoppingListActions.ShoppingListActions
     ) {
-    // USE SWITCH CASES TO CHECK THE ACTION TYPE AND RETURN A NEW STATE DEPENDING ON THE TYPE
-    //DATA IN <- DATA OUT -> RETURN STATE WILL BE REGISTERED AS THE shoppinList: slice of the overall appstate
-    switch(action.type){
+
+// USE SWITCH CASES TO CHECK THE ACTION TYPE AND RETURN A NEW STATE DEPENDING ON THE TYPE
+//DATA IN <- DATA OUT -> RETURN STATE WILL BE REGISTERED AS THE shoppingList: slice of the overall appstate
+
+switch(action.type){
         case ShoppingListActions.ADD_INGREDIENT:
             return {
                 ...state,
