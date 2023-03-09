@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit{
         if(this.isLogInMode){
         //    authObs = this.authServ.login(email, password);
         this.store.dispatch(
-            new AuthActions.LoginStart({
+            AuthActions.loginStart({
                 email: email,
                 password: password
             })

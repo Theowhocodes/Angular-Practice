@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Actions, ofType } from "@ngrx/effects";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { environment } from '../../../../../environments/environment';
@@ -22,34 +22,36 @@ export interface AuthResponseData {
 @Injectable()
 export class AuthEffects {
     //@Effect()
-    authSignup = this.actions$.pipe(
-        ofType(AuthActions.SIGNUP_START),
-        switchMap((signupAction: AuthActions.SignupStart)=>{
-            return this.http.post<AuthResponseData>(
+    authSignup$ = createEffect(() => 
+        this.actions$.pipe(
+        ofType(AuthActions.signupStart),
+        switchMap( signupAction => {
+             this.http.post<AuthResponseData>(
                 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDI78rbykLoxaxm4990ApVuU6DNyrKZWRQ',
             {
-                email: signupAction.payload.email,
-                password: signupAction.payload.password,
+                email: signupAction.email,
+                password: signupAction.password,
                 returnSecureToken: true
     
             } 
             )
         })
-    )
+    ))
+    
 
 //first action handler/effect
 // @Effect()
     authLogin = this.actions$.pipe(
 
         //defines a filter of what types of effects you want to handle
-        ofType(AuthActions.LOGIN_START),
+        ofType(AuthActions.loginStart),
 
         //allows us to take an observables data and create a new one
-        switchMap((authData: AuthActions.LoginStart) =>{
+        switchMap((authData) =>{
             return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDI78rbykLoxaxm4990ApVuU6DNyrKZWRQ',
         {
-            email: authData.payload.email,
-            password: authData.payload.password,
+            email: authData.email,
+            password: authData.password,
             returnSecureToken: true
 
         }
@@ -57,7 +59,7 @@ export class AuthEffects {
             return of();
         }), map(responseData =>{
             const expirationDate = new Date(new Date().getTime() + +responseData.expiresIn * 1000);
-            return new AuthActions.AuthenticateSuccess({
+            return AuthActions.authenticateSuccess({
                 email: responseData.email,
                 userId: responseData.localId,
                 token: responseData.idToken,
